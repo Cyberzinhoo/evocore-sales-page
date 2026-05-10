@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evocore - Alimentacao com IA, sem dieta rigida</title>
+  <meta name="description" content="Evocore ajuda voce a comer melhor com scanner de refeicoes por IA, acompanhamento de metas e bonus exclusivos.">
+  <style>
+    :root {
+      --bg: oklch(0% 0 0);
+      --surface: oklch(8% 0.012 245);
+      --surface-2: oklch(13% 0.018 245);
+      --fg: oklch(98% 0.004 245);
+      --muted: oklch(72% 0.018 245);
+      --dim: oklch(55% 0.02 245);
+      --border: oklch(25% 0.025 245);
+      --accent: oklch(72% 0.18 225);
+      --accent-2: oklch(58% 0.22 250);
+      --success: oklch(72% 0.19 150);
+      --warning: oklch(76% 0.15 80);
+      --font-display: Impact, Haettenschweiler, 'Arial Narrow Bold', system-ui, sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+      --radius: 28px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 50% 0%, oklch(22% 0.12 230 / 0.38), transparent 34rem),
+        radial-gradient(circle at 82% 18%, oklch(50% 0.2 230 / 0.18), transparent 22rem),
+        var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      text-rendering: geometricPrecision;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(oklch(100% 0 0 / 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(100% 0 0 / 0.025) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, black, transparent 70%);
+      z-index: -1;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: oklch(0% 0 0 / 0.72);
+      border-bottom: 1px solid oklch(100% 0 0 / 0.08);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: clamp(132px, 34vw, 176px);
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px oklch(68% 0.2 230 / 0.22));
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .cta {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid oklch(82% 0.16 225 / 0.45);
+      border-radius: 999px;
+      padding: 0 18px;
+      background: linear-gradient(180deg, var(--accent), oklch(61% 0.2 235));
+      color: oklch(2% 0 0);
+      font-weight: 900;
+      box-shadow: 0 0 30px oklch(68% 0.22 230 / 0.35);
+      white-space: nowrap;
+    }
+
+    .cta.secondary {
+      background: oklch(100% 0 0 / 0.04);
+      color: var(--fg);
+      border-color: var(--border);
+      box-shadow: none;
+    }
+
+    .hero {
+      padding: 44px 0 68px;
+      overflow: clip;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 8px oklch(72% 0.18 225 / 0.14);
+    }
+
+    h1, h2, h3, p { margin-block-start: 0; }
+    h1 {
+      margin-block-end: 18px;
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 16vw, 8.5rem);
+      line-height: 0.86;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    h1 .accent, h2 .accent { color: var(--accent); }
+
+    .lead {
+      max-width: 650px;
+      margin-block-end: 26px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 3.7vw, 1.35rem);
+      text-wrap: pretty;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 540px;
+    }
+
+    .trust-item {
+      min-height: 82px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: oklch(100% 0 0 / 0.035);
+    }
+
+    .trust-item strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--fg);
+      font-size: 1rem;
+    }
+
+    .trust-item span {
+      color: var(--dim);
+      font-size: 0.78rem;
+    }
+
+    .phone-stage {
+      position: relative;
+      min-height: 600px;
+      display: grid;
+      place-items: center;
+    }
+
+    .phone-stage::before {
+      content: "";
+      position: absolute;
+      width: min(84vw, 560px);
+      aspect-ratio: 1;
+      border-radius: 999px;
+      background: radial-gradient(circle, oklch(62% 0.22 230 / 0.35), transparent 62%);
+      filter: blur(8px);
+    }
+
+    .phone {
+      position: relative;
+      width: min(310px, 76vw);
+      aspect-ratio: 390 / 844;
+      padding: 10px;
+      border: 1px solid oklch(83% 0.12 225 / 0.25);
+      border-radius: 42px;
+      background: linear-gradient(145deg, oklch(20% 0.03 245), oklch(3% 0 0));
+      box-shadow:
+        0 0 60px oklch(65% 0.22 230 / 0.42),
+        inset 0 0 0 1px oklch(100% 0 0 / 0.08);
+      overflow: hidden;
+    }
+
+    .phone img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 32px;
+      background: black;
+    }
+
+    .scan-card {
+      position: absolute;
+      right: 0;
+      bottom: 54px;
+      width: min(250px, 64vw);
+      padding: 14px;
+      border: 1px solid oklch(75% 0.17 225 / 0.45);
+      border-radius: 22px;
+      background: oklch(8% 0.02 245 / 0.88);
+      box-shadow: 0 0 42px oklch(68% 0.2 230 / 0.34);
+      backdrop-filter: blur(18px);
+    }
+
+    .scan-card small {
+      display: block;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .macro-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .macro-line b { color: var(--fg); font-variant-numeric: tabular-nums; }
+
+    section { padding: 64px 0; }
+    .section-head {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 9vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .section-head p {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      text-wrap: pretty;
+    }
+
+    .feature-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .feature {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(180deg, oklch(100% 0 0 / 0.05), oklch(100% 0 0 / 0.02));
+    }
+
+    .feature.kicker {
+      border-color: oklch(75% 0.18 225 / 0.45);
+      background:
+        radial-gradient(circle at 100% 0%, oklch(62% 0.22 230 / 0.22), transparent 40%),
+        oklch(7% 0.016 245);
+    }
+
+    .feature h3 {
+      margin-bottom: 9px;
+      font-size: 1.22rem;
+      line-height: 1.15;
+    }
+
+    .feature p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 16px;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: oklch(72% 0.18 225 / 0.12);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .image-ideas {
+      display: grid;
+      gap: 14px;
+    }
+
+    .image-idea {
+      min-height: 168px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 100% 0%, oklch(62% 0.22 230 / 0.16), transparent 42%),
+        linear-gradient(180deg, oklch(100% 0 0 / 0.052), oklch(100% 0 0 / 0.022));
+      overflow: hidden;
+      position: relative;
+    }
+
+    .image-idea::after {
+      content: "";
+      position: absolute;
+      inset: auto 18px 18px auto;
+      width: 86px;
+      height: 54px;
+      border: 1px solid oklch(72% 0.18 225 / 0.4);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, transparent 47%, oklch(72% 0.18 225 / 0.4) 48% 52%, transparent 53%),
+        oklch(72% 0.18 225 / 0.08);
+      opacity: 0.85;
+    }
+
+    .image-idea span {
+      display: inline-flex;
+      margin-bottom: 14px;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .image-idea h3 {
+      max-width: 330px;
+      margin-bottom: 8px;
+      font-size: 1.15rem;
+      line-height: 1.12;
+    }
+
+    .image-idea p {
+      max-width: 360px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: oklch(100% 0 0 / 0.035);
+    }
+
+    .step::before {
+      content: counter(step);
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--accent);
+      color: black;
+      font-weight: 950;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .step h3 { margin-bottom: 4px; font-size: 1.05rem; }
+    .step p { margin: 0; color: var(--muted); font-size: 0.94rem; }
+
+    .offer {
+      border: 1px solid oklch(75% 0.18 225 / 0.45);
+      border-radius: 32px;
+      background:
+        linear-gradient(145deg, oklch(13% 0.025 245 / 0.94), oklch(3% 0 0 / 0.98)),
+        var(--surface);
+      box-shadow: 0 0 70px oklch(65% 0.22 230 / 0.24);
+      overflow: hidden;
+    }
+
+    .offer-grid {
+      display: grid;
+      gap: 0;
+    }
+
+    .offer-copy, .offer-panel { padding: 26px; }
+    .offer-copy { border-bottom: 1px solid var(--border); }
+
+    .price {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      margin: 18px 0 12px;
+    }
+
+    .price strong {
+      font-family: var(--font-display);
+      font-size: clamp(3.7rem, 16vw, 6.5rem);
+      line-height: 0.85;
+      letter-spacing: 0;
+    }
+
+    .price span {
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .included {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .included li {
+      display: flex;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .included li::before {
+      content: "";
+      flex: 0 0 10px;
+      width: 10px;
+      height: 10px;
+      margin-top: 7px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 16px oklch(72% 0.19 150 / 0.4);
+    }
+
+    .bonus-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: oklch(100% 0 0 / 0.04);
+    }
+
+    .bonus-card + .bonus-card { margin-top: 12px; }
+    .bonus-card h3 { margin-bottom: 6px; font-size: 1.05rem; }
+    .bonus-card p { margin: 0; color: var(--muted); font-size: 0.94rem; }
+
+    .faq {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: oklch(100% 0 0 / 0.035);
+      overflow: hidden;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 18px;
+      font-weight: 800;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    details p {
+      margin: 0;
+      padding: 0 18px 18px;
+      color: var(--muted);
+    }
+
+    .final {
+      text-align: center;
+      padding-bottom: 110px;
+    }
+
+    .final p {
+      max-width: 640px;
+      margin: 0 auto 24px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .sticky-cta {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid oklch(100% 0 0 / 0.12);
+      border-radius: 22px;
+      background: oklch(5% 0.012 245 / 0.88);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 16px 50px oklch(0% 0 0 / 0.55);
+    }
+
+    .sticky-cta strong { display: block; font-size: 0.9rem; }
+    .sticky-cta span { display: block; color: var(--muted); font-size: 0.76rem; }
+
+    .sticky-cta .cta {
+      min-height: 44px;
+      padding: 0 14px;
+      font-size: 0.86rem;
+    }
+
+    @media (min-width: 760px) {
+      .nav-links { display: flex; }
+      .hero { padding-top: 76px; }
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+      }
+      .feature-grid { grid-template-columns: 1.2fr 1fr 1fr; }
+      .showcase { grid-template-columns: 0.9fr 1.1fr; }
+      .offer-grid { grid-template-columns: 1.05fr 0.95fr; }
+      .offer-copy {
+        border-bottom: 0;
+        border-right: 1px solid var(--border);
+      }
+      .offer-copy, .offer-panel { padding: 38px; }
+      .sticky-cta {
+        left: 50%;
+        right: auto;
+        width: min(560px, calc(100% - 32px));
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (min-width: 1080px) {
+      .phone { width: 340px; }
+      .scan-card { right: -50px; }
+      .feature { padding: 28px; }
+      section { padding: 82px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="#top" aria-label="Evocore inicio">
+        <img class="brand-logo" src="moxoe18f-Evocore.png" alt="Evocore">
+      </a>
+      <nav class="nav-links" aria-label="Secoes">
+        <a href="#scanner">Scanner IA</a>
+        <a href="#app">App</a>
+        <a href="#oferta">Oferta</a>
+      </nav>
+      <a class="cta" href="#oferta">Garantir oferta</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span> Alimentação e Treino com inteligencia artificial</div>
+          <h1 style="padding: 12px; text-align: left;">Coma melhor sem virar refem de dieta.</h1>
+          <p class="lead">O Evocore transforma foto de refeicao em uma leitura simples de calorias, proteinas e macros, para voce decidir melhor no dia a dia sem planilha, culpa ou chute.</p>
+          <div class="hero-actions">
+            <a class="cta" href="#oferta">Comecar com oferta exclusiva</a>
+            <a class="cta secondary" href="#scanner">Ver como funciona</a>
+          </div>
+          <div class="trust-row" aria-label="Destaques do app">
+            <div class="trust-item"><strong>Foto do prato</strong><span>envie ou descreva a refeicao</span></div>
+            <div class="trust-item"><strong>Macros claros</strong><span>calorias, proteinas e mais</span></div>
+            <div class="trust-item"><strong>Rotina leve</strong><span>acompanhe sem dieta rigida</span></div>
+          </div>
+        </div>
+
+        <div class="phone-stage" aria-label="Previa do aplicativo Evocore">
+          <div class="phone">
+            <img src="assets/meal-scan-result.png" alt="Tela de resultado do scanner de refeicao com torrada e ovo no Evocore">
+          </div>
+          <div class="scan-card" aria-label="Resultado estimado da refeicao">
+            <small>Analise por IA</small>
+            <div class="macro-line"><span>Calorias</span><b>165 kcal</b></div>
+            <div class="macro-line"><span>Proteinas</span><b>10g</b></div>
+            <div class="macro-line"><span>Itens detectados</span><b>2</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scanner">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow"><span class="pulse"></span> O problema real</div>
+          <h2>Voce nao precisa decorar tabela nutricional.</h2>
+          <p>O ponto nao e comer perfeito. E conseguir enxergar o que esta no prato antes de repetir o mesmo erro por falta de informacao.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature kicker">
+            <span class="badge">Scanner de refeicao</span>
+            <h3>Tire uma foto, envie uma imagem ou descreva o prato.</h3>
+            <p>A IA interpreta a refeicao e organiza uma estimativa de calorias, proteinas, carboidratos e gorduras em uma tela simples de entender.</p>
+          </article>
+          <article class="feature">
+            <span class="badge">Decisao rapida</span>
+            <h3>Troque o "acho que foi pouco" por informacao.</h3>
+            <p>Veja o impacto da refeicao no seu resumo do dia e ajuste a proxima escolha sem complicar sua rotina.</p>
+          </article>
+          <article class="feature">
+            <span class="badge">Sem terrorismo</span>
+            <h3>Comer melhor, nao viver contando medo.</h3>
+            <p>O app foi pensado para consistencia: acompanhar, aprender e seguir, sem transformar cada prato em uma prova.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="app">
+      <div class="shell showcase">
+        <div>
+          <div class="section-head">
+            <div class="eyebrow"><span class="pulse"></span> Dentro do Evocore</div>
+            <h2>Um app para a rotina inteira.</h2>
+            <p>Alimentacao, treino, perfil de consistencia, missoes e recompensas no mesmo sistema visual. Menos abas mentais, mais acao no dia.</p>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div>
+                <h3>Monte sua base</h3>
+                <p>O app organiza peso atual, meta, IMC, TMB e proximas acoes em uma tela de controle.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h3>Registre o que come</h3>
+                <p>Use foto, galeria ou texto para analisar refeicoes e manter o resumo do dia atualizado.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div>
+                <h3>Continue consistente</h3>
+                <p>Treinos, desafios e recompensas ajudam a manter o comportamento mesmo quando a motivacao cai.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="image-ideas" aria-label="Sugestoes de imagens futuras para a pagina">
+          <article class="image-idea">
+            <span>Imagem 01</span>
+            <h3>Foto real do prato antes do escaneamento</h3>
+            <p>Uma foto limpa, vertical, de uma refeicao simples em cima da mesa. Ideal para mostrar o momento antes da IA entrar.</p>
+          </article>
+          <article class="image-idea">
+            <span>Imagem 02</span>
+            <h3>Sequencia foto - macros - decisao</h3>
+            <p>Um mockup com tres estados: captura da comida, resultado de calorias/proteinas e resumo do dia atualizado.</p>
+          </article>
+          <article class="image-idea">
+            <span>Imagem 03</span>
+            <h3>Pacote dos ebooks bonus</h3>
+            <p>Capas 3D ou cards premium dos ebooks, sem depoimentos. Isso aumenta valor percebido sem parecer prova social inventada.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="oferta">
+      <div class="shell">
+        <div class="offer">
+          <div class="offer-grid">
+            <div class="offer-copy">
+              <div class="eyebrow"><span class="pulse"></span> Oferta exclusiva</div>
+              <h2>Assinatura mensal + bonus de ebooks.</h2>
+              <p class="lead">Entre no Evocore com acesso mensal e receba materiais extras para acelerar sua organizacao alimentar sem depender de dieta pronta.</p>
+              <div class="price" aria-label="Preco da oferta">
+                <strong>Mensal</strong>
+                <span>oferta especial por tempo limitado</span>
+              </div>
+              <a class="cta" href="#oferta" aria-label="Garantir assinatura mensal do Evocore">Quero minha oferta exclusiva</a>
+              <ul class="included">
+                <li>Scanner de refeicoes por foto, imagem ou texto.</li>
+                <li>Resumo diario de calorias e macros.</li>
+                <li>Acompanhamento de metas e consistencia.</li>
+                <li>Treinos e acoes sugeridas para manter o ritmo.</li>
+              </ul>
+            </div>
+            <div class="offer-panel">
+              <div class="bonus-card">
+                <span class="badge">Bonus 01</span>
+                <h3>Ebooks exclusivos de organizacao alimentar</h3>
+                <p>Guias complementares para montar uma rotina mais simples, com escolhas melhores e menos improviso.</p>
+              </div>
+              <div class="bonus-card">
+                <span class="badge">Bonus 02</span>
+                <h3>Metodo sem dieta rigida</h3>
+                <p>Use o app como um painel de consciencia: registre, entenda e ajuste sem depender de cardapio engessado.</p>
+              </div>
+              <div class="bonus-card">
+                <span class="badge">Bonus 03</span>
+                <h3>Experiencia premium no celular</h3>
+                <p>Interface escura, objetiva e rapida para voce abrir no momento em que realmente precisa decidir.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow"><span class="pulse"></span> Perguntas comuns</div>
+          <h2>Antes de entrar.</h2>
+        </div>
+        <div class="faq">
+          <details open="">
+            <summary>O scanner acerta exatamente todas as calorias?</summary>
+            <p>Ele gera uma estimativa inteligente com base na imagem ou descricao. A proposta e dar uma referencia pratica para decisao, nao substituir avaliacao profissional ou balanca de cozinha.</p>
+          </details>
+          <details>
+            <summary>Serve para quem nao quer seguir dieta fechada?</summary>
+            <p>Sim. A pagina foi pensada para esse publico: pessoas que querem comer melhor, entender o prato e evoluir com consistencia sem rotina engessada.</p>
+          </details>
+          <details>
+            <summary>O que vem na assinatura mensal?</summary>
+            <p>Acesso ao app Evocore, recursos de acompanhamento alimentar, scanner de refeicoes, areas de treino e os bonus de ebooks incluidos na oferta.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="shell">
+        <h2>Seu prato pode virar dado. Sua rotina pode virar progresso.</h2>
+        <p>Comece pelo simples: tire a foto, veja os macros estimados e faca a proxima escolha com mais clareza.</p>
+        <a class="cta" href="#oferta">Garantir Evocore agora</a>
+      </div>
+    </section>
+  </main>
+
+  <aside class="sticky-cta" aria-label="Chamada fixa da oferta">
+    <div>
+      <strong>Evocore mensal + bonus</strong>
+      <span>Oferta exclusiva disponivel</span>
+    </div>
+    <a class="cta" href="#oferta">Entrar</a>
+  </aside>
+
+
+</body></html>
