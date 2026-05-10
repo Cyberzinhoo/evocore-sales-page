@@ -359,57 +359,48 @@
       align-items: center;
     }
 
-    .image-ideas {
+    .workout-visual {
       display: grid;
       gap: 14px;
     }
 
-    .image-idea {
-      min-height: 168px;
+    .workout-phone {
+      max-width: 330px;
+      margin-inline: auto;
+      padding: 10px;
+      border: 1px solid oklch(83% 0.12 225 / 0.25);
+      border-radius: 42px;
+      background: linear-gradient(145deg, oklch(20% 0.03 245), oklch(3% 0 0));
+      box-shadow: 0 0 52px oklch(65% 0.22 230 / 0.28), inset 0 0 0 1px oklch(100% 0 0 / 0.08);
+      overflow: hidden;
+    }
+
+    .workout-phone img {
+      width: 100%;
+      aspect-ratio: 390 / 844;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 32px;
+      background: black;
+    }
+
+    .premise-card {
       padding: 18px;
-      border: 1px solid var(--border);
+      border: 1px solid oklch(75% 0.18 225 / 0.36);
       border-radius: 24px;
       background:
-        radial-gradient(circle at 100% 0%, oklch(62% 0.22 230 / 0.16), transparent 42%),
-        linear-gradient(180deg, oklch(100% 0 0 / 0.052), oklch(100% 0 0 / 0.022));
-      overflow: hidden;
-      position: relative;
+        radial-gradient(circle at 100% 0%, oklch(62% 0.22 230 / 0.16), transparent 44%),
+        oklch(100% 0 0 / 0.04);
     }
 
-    .image-idea::after {
-      content: "";
-      position: absolute;
-      inset: auto 18px 18px auto;
-      width: 86px;
-      height: 54px;
-      border: 1px solid oklch(72% 0.18 225 / 0.4);
-      border-radius: 16px;
-      background:
-        linear-gradient(135deg, transparent 47%, oklch(72% 0.18 225 / 0.4) 48% 52%, transparent 53%),
-        oklch(72% 0.18 225 / 0.08);
-      opacity: 0.85;
-    }
-
-    .image-idea span {
-      display: inline-flex;
-      margin-bottom: 14px;
-      color: var(--accent);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .image-idea h3 {
-      max-width: 330px;
+    .premise-card strong {
+      display: block;
       margin-bottom: 8px;
-      font-size: 1.15rem;
-      line-height: 1.12;
+      color: var(--fg);
+      font-size: 1.02rem;
     }
 
-    .image-idea p {
-      max-width: 360px;
+    .premise-card p {
       margin: 0;
       color: var(--muted);
       font-size: 0.94rem;
@@ -695,46 +686,38 @@
       <div class="shell showcase">
         <div>
           <div class="section-head">
-            <div class="eyebrow"><span class="pulse"></span> Dentro do Evocore</div>
-            <h2>Um app para a rotina inteira.</h2>
-            <p>Alimentacao, treino, perfil de consistencia, missoes e recompensas no mesmo sistema visual. Menos abas mentais, mais acao no dia.</p>
+            <div class="eyebrow"><span class="pulse"></span> Por dentro dos treinos</div>
+            <h2>Treino que se adapta a voce, nao o contrario.</h2>
+            <p>Quando o treino parece impossivel, a maioria das pessoas para. O Evocore parte de outra premissa: se um exercicio nao encaixa no seu corpo, na sua casa ou no seu momento, ele precisa poder mudar.</p>
           </div>
           <div class="steps">
             <div class="step">
               <div>
-                <h3>Monte sua base</h3>
-                <p>O app organiza peso atual, meta, IMC, TMB e proximas acoes em uma tela de controle.</p>
+                <h3>Monte um treino com o seu ponto de partida</h3>
+                <p>O app ajuda a organizar uma rotina de treino sem exigir que voce ja chegue sabendo tudo. A ideia e comecar possivel para continuar de verdade.</p>
               </div>
             </div>
             <div class="step">
               <div>
-                <h3>Registre o que come</h3>
-                <p>Use foto, galeria ou texto para analisar refeicoes e manter o resumo do dia atualizado.</p>
+                <h3>Troque o exercicio quando ele nao servir</h3>
+                <p>Se algum movimento incomodar, exigir equipamento que voce nao tem ou simplesmente nao fizer sentido para voce, a rotina pode ser ajustada.</p>
               </div>
             </div>
             <div class="step">
               <div>
-                <h3>Continue consistente</h3>
-                <p>Treinos, desafios e recompensas ajudam a manter o comportamento mesmo quando a motivacao cai.</p>
+                <h3>Remova o que atrapalha sua constancia</h3>
+                <p>Consistencia nao nasce de um treino perfeito. Nasce de uma sequencia que respeita sua realidade e ainda te puxa para frente.</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="image-ideas" aria-label="Sugestoes de imagens futuras para a pagina">
-          <article class="image-idea">
-            <span>Imagem 01</span>
-            <h3>Foto real do prato antes do escaneamento</h3>
-            <p>Uma foto limpa, vertical, de uma refeicao simples em cima da mesa. Ideal para mostrar o momento antes da IA entrar.</p>
-          </article>
-          <article class="image-idea">
-            <span>Imagem 02</span>
-            <h3>Sequencia foto - macros - decisao</h3>
-            <p>Um mockup com tres estados: captura da comida, resultado de calorias/proteinas e resumo do dia atualizado.</p>
-          </article>
-          <article class="image-idea">
-            <span>Imagem 03</span>
-            <h3>Pacote dos ebooks bonus</h3>
-            <p>Capas 3D ou cards premium dos ebooks, sem depoimentos. Isso aumenta valor percebido sem parecer prova social inventada.</p>
+        <div class="workout-visual" aria-label="Tela de treinos personalizados do Evocore">
+          <figure class="workout-phone">
+            <img src="moxoiw3f-treino.png" alt="Tela de treinos personalizados no aplicativo Evocore">
+          </figure>
+          <article class="premise-card">
+            <strong>Premissa simples: o melhor treino e o que voce consegue repetir.</strong>
+            <p>Por isso o Evocore junta alimentacao, scan de refeicao e treino no mesmo caminho: voce entende o prato, move o corpo e ajusta sem sentir que falhou.</p>
           </article>
         </div>
       </div>
@@ -746,35 +729,40 @@
           <div class="offer-grid">
             <div class="offer-copy">
               <div class="eyebrow"><span class="pulse"></span> Oferta exclusiva</div>
-              <h2>Assinatura mensal + bonus de ebooks.</h2>
-              <p class="lead">Entre no Evocore com acesso mensal e receba materiais extras para acelerar sua organizacao alimentar sem depender de dieta pronta.</p>
+              <h2>Assinatura mensal para nao caminhar sozinho.</h2>
+              <p class="lead">O Evocore nao e so um app bonito no celular. E um sistema para te ajudar a comer melhor, treinar com mais clareza e tirar duvidas quando voce travar no caminho.</p>
               <div class="price" aria-label="Preco da oferta">
                 <strong>Mensal</strong>
                 <span>oferta especial por tempo limitado</span>
               </div>
-              <a class="cta" href="#oferta" aria-label="Garantir assinatura mensal do Evocore">Quero minha oferta exclusiva</a>
+              <a class="cta" href="#oferta" aria-label="Garantir assinatura mensal do Evocore">Quero entrar no Evocore</a>
               <ul class="included">
-                <li>Scanner de refeicoes por foto, imagem ou texto.</li>
-                <li>Resumo diario de calorias e macros.</li>
-                <li>Acompanhamento de metas e consistencia.</li>
-                <li>Treinos e acoes sugeridas para manter o ritmo.</li>
+                <li>App Evocore com scan de refeicoes, treinos personalizados e acompanhamento de calorias, IMC e TMB.</li>
+                <li>Comunidade no WhatsApp para receber orientacoes, atualizacoes e lembretes que ajudam na constancia.</li>
+                <li>Acompanhamento para tirar duvidas com profissional nutricionista.</li>
+                <li>Bonus de ebooks exclusivos para organizar melhor sua rotina alimentar.</li>
               </ul>
             </div>
             <div class="offer-panel">
               <div class="bonus-card">
-                <span class="badge">Bonus 01</span>
-                <h3>Ebooks exclusivos de organizacao alimentar</h3>
-                <p>Guias complementares para montar uma rotina mais simples, com escolhas melhores e menos improviso.</p>
+                <span class="badge">Pilar 01</span>
+                <h3>O app: scan, treinos e painel do seu corpo</h3>
+                <p>Voce acompanha refeicoes, calorias, proteinas, IMC, TMB e treinos no mesmo lugar. A premissa e clara: quando a informacao fica simples, a decisao fica mais leve.</p>
               </div>
               <div class="bonus-card">
-                <span class="badge">Bonus 02</span>
-                <h3>Metodo sem dieta rigida</h3>
-                <p>Use o app como um painel de consciencia: registre, entenda e ajuste sem depender de cardapio engessado.</p>
+                <span class="badge">Pilar 02</span>
+                <h3>Comunidade no WhatsApp com atualizacoes</h3>
+                <p>Um espaco para aprender, receber novidades e continuar perto do processo. Porque muita gente nao desiste por falta de vontade, desiste por se sentir sozinha.</p>
               </div>
               <div class="bonus-card">
-                <span class="badge">Bonus 03</span>
-                <h3>Experiencia premium no celular</h3>
-                <p>Interface escura, objetiva e rapida para voce abrir no momento em que realmente precisa decidir.</p>
+                <span class="badge">Pilar 03</span>
+                <h3>Duvidas com profissional nutricionista</h3>
+                <p>Quando surgir inseguranca sobre comida, rotina ou ajuste, voce tem um caminho para perguntar. A ideia e acolher a duvida antes que ela vire abandono.</p>
+              </div>
+              <div class="bonus-card">
+                <span class="badge">Bonus</span>
+                <h3>Ebooks exclusivos para apoiar sua rotina</h3>
+                <p>Materiais extras para complementar o app com orientacoes praticas, organizacao alimentar e escolhas mais conscientes no dia a dia.</p>
               </div>
             </div>
           </div>
@@ -799,7 +787,7 @@
           </details>
           <details>
             <summary>O que vem na assinatura mensal?</summary>
-            <p>Acesso ao app Evocore, recursos de acompanhamento alimentar, scanner de refeicoes, areas de treino e os bonus de ebooks incluidos na oferta.</p>
+            <p>Acesso ao app Evocore com scan de refeicoes, treinos personalizados, acompanhamento de calorias, IMC e TMB, comunidade no WhatsApp, atualizacoes, ebooks bonus e suporte para duvidas com profissional nutricionista.</p>
           </details>
         </div>
       </div>
