@@ -1,9 +1,11 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Evocore - Suporte</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
   <style>
     :root {
       --bg: oklch(0% 0 0);
@@ -39,16 +41,11 @@
     }
 
     .brand-mark {
-      width: 48px;
-      height: 48px;
+      width: 120px;
+      height: auto;
       margin: 0 auto 24px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      color: black;
-      background: var(--accent);
-      font-weight: 900;
-      font-size: 1.5rem;
+      display: block;
+      filter: drop-shadow(0 0 12px oklch(68% 0.2 230 / 0.15));
     }
 
     h1 {
@@ -78,25 +75,19 @@
       text-decoration: none;
       width: 100%;
     }
-
-    .back-link {
-      display: block;
-      margin-top: 24px;
-      color: oklch(55% 0.02 245);
-      font-size: 0.9rem;
-      text-decoration: none;
-    }
   </style>
 </head>
+
 <body>
   <div class="card">
-    <div class="brand-mark">E</div>
-    <h1>Suporte</h1>
-    <p>Fale diretamente com nosso Especialista Nutricionista para tirar dúvidas sobre alimentação, treinos e o app Evocore!</p>
-    
+    <img src="assets/logo.png" alt="Evocore Logo" class="brand-mark">
+    <h1>Fale com um Especialista Nutritionista</h1>
+    <p>Fale diretamente com nosso Personal Nutri para tirar dúvidas sobre alimentação, treinos e o app Evocore!</p>
+
     <a href="https://wa.me/558196062098" class="cta" target="_blank">Falar no WhatsApp</a>
 
-    <a href="index.html" class="back-link">← Voltar para o início</a>
+
   </div>
 </body>
+
 </html>
