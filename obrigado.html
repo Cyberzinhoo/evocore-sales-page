@@ -1,226 +1,414 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Evocore - Próximo Passo</title>
-  <meta name="description" content="Descubra o próximo passo da sua jornada com Evocore.">
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evolúir - Programa de Transformação Física</title>
   <style>
-    :root {
-      --bg: oklch(0% 0 0);
-      --fg: oklch(98% 0.004 245);
-      --muted: oklch(80% 0.01 245);
-      --accent: oklch(65% 0.18 250);
-      --accent-hover: oklch(55% 0.18 250);
-      --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    
-    body {
+    * {
       margin: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-body);
-      line-height: 1.6;
-      text-rendering: geometricPrecision;
-      -webkit-font-smoothing: antialiased;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* Subtle background text effect */
-    body::after {
-      content: "EVOCORE";
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 25vw;
-      font-weight: 900;
-      color: oklch(100% 0 0 / 0.02);
-      z-index: -1;
-      pointer-events: none;
-      white-space: nowrap;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000000;
+      color: #fff;
+      line-height: 1.6;
     }
 
     .container {
-      width: 100%;
-      max-width: 960px;
-      padding: 60px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: #00d4ff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #00d4ff 0%, #0088ff 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    /* Main Headline */
+    .headline {
+      font-size: 2.2em;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeIn 1s ease;
+    }
+
+    .highlight {
+      color: #00d4ff;
+      font-style: italic;
+    }
+
+    /* Subheadline */
+    .subheadline {
+      font-size: 1.2em;
+      color: #b0b8d4;
+      margin-bottom: 16px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 0.8s ease 0.2s backwards;
+    }
+
+    /* Content Section */
+    .content-section {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 15px;
+      padding: 24px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(10px);
+      animation: slideUp 0.8s ease 0.3s backwards;
+    }
+
+    .content-section p {
+      margin-bottom: 12px;
+      font-size: 1.05em;
+      color: #d4d9e8;
+      line-height: 1.8;
+    }
+
+    .content-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .offers-section-title {
+      text-align: center;
+      font-size: 2em;
+      font-weight: 700;
+      margin: 20px 0 20px 0;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #00d4ff 0%, #0088ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .features-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .feature-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-    }
-
-    h1 {
-      font-size: clamp(1.4rem, 4vw, 2.2rem);
-      line-height: 1.35;
-      margin-bottom: 40px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    p {
-      color: var(--muted);
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
-      max-width: 840px;
-      margin: 0 auto 28px;
-    }
-
-    .list-container {
-      text-align: left;
-      margin: 40px auto;
-      max-width: 760px;
-      width: 100%;
-    }
-
-    .list-item {
-      display: flex;
-      align-items: flex-start;
       gap: 12px;
-      margin-bottom: 12px;
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
-      color: var(--fg);
+      padding: 24px 20px;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 136, 255, 0.1) 100%);
+      border: 2px solid rgba(0, 212, 255, 0.5);
+      border-radius: 15px;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
 
-    .list-item::before {
-      content: "→";
-      color: var(--fg);
-      font-weight: bold;
+    .feature-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .feature-item:hover {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.25) 0%, rgba(0, 136, 255, 0.2) 100%);
+      transform: translateY(-10px);
+      border-color: #00d4ff;
+      box-shadow: 0 20px 50px rgba(0, 212, 255, 0.3);
+    }
+
+    .feature-item:hover::before {
+      left: 100%;
+    }
+
+    .feature-icon {
+      font-size: 4em;
+      min-width: 80px;
+      text-align: center;
+      filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+    }
+
+    .feature-text {
+      flex: 1;
+    }
+
+    .feature-text strong {
+      display: block;
+      color: #00d4ff;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .feature-text p {
+      font-size: 1em;
+      color: #d4d9e8;
+      margin: 0;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .cta-section {
+      text-align: center;
+      margin: 20px 0;
     }
 
     .cta-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 800px;
-      background: var(--accent);
-      color: white;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      padding: 22px 32px;
-      border-radius: 8px;
-      margin-top: 24px;
+      background: linear-gradient(135deg, #00d4ff 0%, #0088ff 100%);
+      color: #000;
+      border: none;
+      padding: 18px 50px;
+      font-size: 1.1em;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 40px oklch(65% 0.18 250 / 0.2);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      text-decoration: none;
     }
 
     .cta-button:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 0 60px oklch(65% 0.18 250 / 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
     }
 
-    .decline-link {
-      display: inline-block;
-      margin-top: 28px;
-      color: oklch(100% 0 0 / 0.6);
-      font-size: 0.95rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s ease;
+    .cta-button:active {
+      transform: translateY(-1px);
     }
 
-    .decline-link:hover {
-      color: var(--fg);
-      text-decoration: underline;
+    /* Footer Text */
+    .footer-text {
+      text-align: center;
+      margin-top: 20px;
+      color: #7a8299;
+      font-size: 0.95em;
+      font-style: italic;
     }
 
-    .guarantee-box {
-      margin-top: 60px;
-      padding: 32px 24px;
-      max-width: 600px;
-      width: 100%;
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+      margin: 16px 0;
     }
 
-    .guarantee-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
-    .guarantee-title span {
-      display: inline-block;
-      font-size: 1.3rem;
-    }
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
 
-    .guarantee-text {
-      font-size: 1rem;
-      color: var(--fg);
-      margin: 0;
-    }
-
-    .footer-terms {
-      margin-top: auto;
-      padding-top: 80px;
-      font-size: 0.75rem;
-      color: oklch(100% 0 0 / 0.4);
-      max-width: 600px;
-    }
-
-    /* Subtle entrance animation */
-    .fade-in-up {
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
-    .delay-5 { animation-delay: 0.5s; }
-
-    @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .headline {
+        font-size: 1.8em;
+      }
+
+      .features-list {
+        grid-template-columns: 1fr;
+      }
+
+      .content-section {
+        padding: 25px;
+      }
+
+      .container {
+        padding: 20px 15px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <h1 class="fade-in-up">70% das pessoas interrompem seus treinos no primeiro ano por lesões bobas ou treinarem muito e sentirem que não estão tendo resultados , mas não precisa ser assim !</h1>
-    
-    <p class="fade-in-up delay-1">O aplicativo é o seu mapa e que você tem diante de si agora é o veículo blindado. Entenda uma coisa: o seu corpo é uma máquina adaptativa. Se você comer a mesma coisa toda semana ou treinar com a postura errada, ele vai estagnar ou quebrar. Com o acervo de 70 receitas, você ganha flexibilidade metabólica para mudar de objetivo quando quiser. Somado ao Guia Anti-Lesão e ao nosso Grupo VIP, você deixa de ser um executor isolado e passa a fazer parte de um ecossistema focado em performance. Nós removemos a adivinhação do seu processo</p>
-    
-    <p class="fade-in-up delay-2">Evoluir não é sobre levantar mais peso, é sobre estressar o músculo certo sem destruir as suas articulações , e nunca se esqueça que a chance de seguir em frente é 5x vezes maior quando você está cercado de pessoas evoluindo junto !</p>
-
-    <div class="list-container fade-in-up delay-3">
-      <div class="list-item">35 receitas incriveis para emagrecer</div>
-      <div class="list-item">35 receitas incriveis para ganhar massa muscular</div>
-      <div class="list-item">Guia Pratico Evoluir de Verdade e não se lesionar na academia</div>
-      <div class="list-item">Grupo Vip de Suporte ( do aplicativo e dicas e tudo )</div>
-    </div>
-
-    <a href="#" class="cta-button fade-in-up delay-4">Quero Ter Resultados de Verdade !</a>
-    
-    <a href="#" class="decline-link fade-in-up delay-4">Prefiro continuar na minha zona de conforto</a>
-
-    <div class="guarantee-box fade-in-up delay-5">
-      <div class="guarantee-title">
-        <span aria-hidden="true">🛡️</span> Garantia Incondicional de 7 dias
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <img src="assets/logo.png" alt="Evocore Logo" style="height: 48px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.35));">
       </div>
-      <p class="guarantee-text">Se em 7 dias você não estiver <strong>100% satisfeito</strong> com os resultados,<br>devolvemos <strong>TODO o seu investimento !</strong></p>
+      <h1 class="headline">
+        Sua compra foi Aprovada !! Mas pera ai , você sabia que 70% das pessoas param de treinar por <span
+          class="highlight">lesões bobas</span> ou treinam muito e por não verem resultados? Mas ...
+        Não Precisa ser assim !
+      </h1>
+      <p class="subheadline"></p>
+    </header>
+
+    <!-- Main Content -->
+    <section class="content-section">
+      <p>
+        O seu corpo é uma máquina adaptativa, se você comer a mesma coisa toda semana ou treinar com a mesma coisa toda
+        semana, seu corpo vai se acostumar errado, ele vai estagnar e nunca evoluir. Abaixo tem 70 receitas que vai te
+        dar flexibilidade metabólica para mudar de objetivo quando quiser, que somado ao Guia Anti-Lesão e ao nosso
+        Grupo VIP vai te orientar para alem de nunca estar só em sua jornada , conseguir chegar lá o mais rapido
+        possivel !</strong>
+      </p>
+    </section>
+
+    <!-- Features -->
+    <div class="divider"></div>
+
+    <!-- OFERTAS - SEÇÃO EM DESTAQUE -->
+    <h2 class="offers-section-title"></h2>
+
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-icon">🍽️</div>
+        <div class="feature-text">
+          <strong>35 Receitas Incríveis</strong>
+          <p>Para emagrecer com prazer e eficiência</p>
+        </div>
+      </div>
+
+
+      <div class="feature-item">
+        <div class="feature-icon">💪</div>
+        <div class="feature-text">
+          <strong>35 Receitas Incríveis</strong>
+          <p>Para ganhar massa muscular de forma segura</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon">📘</div>
+        <div class="feature-text">
+          <strong>Guia Prático Evolúir</strong>
+          <p>De Verdade e não se lesiona na academia</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon">👥</div>
+        <div class="feature-text">
+          <strong>Grupo VIP de Suporte</strong>
+          <p>Do aplicativo e dicas - tudo incluído!</p>
+        </div>
+      </div>
     </div>
 
-    <div class="footer-terms fade-in-up delay-5">
-      Ao clicar em alguma das opções, você concorda com os <strong>Termos<br>de utilização e serviço, Política de privacidade, Política de<br>subscrição e Política de cookies</strong>
+    <div class="divider"></div>
+
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <button class="cta-button">Quero Ter Resultados de Verdade!</button>
+      <p class="footer-text">Prefiro continuar na minha zona de conforto</p>
+      <p class="footer-text" style="font-size: 12px; color: #ffffff; font-weight: 400;">
+        Evoluir não é sobre levantar mais peso, é sobre estressar o músculo certo sem destruir as suas articulações, e
+        nunca se esqueça que a chance de seguir em frente é 5x vezes maior quando você está cercado de pessoas evoluindo
+        junto!
+      </p>
     </div>
   </div>
+
+
+  <script>
+    // Smooth scroll para o botão CTA
+    document.querySelector('.cta-button').addEventListener('click', function () {
+      // Aqui você pode adicionar a lógica para redirecionar ou disparar uma ação
+      console.log('CTA clicado - Próxima etapa do funil');
+    });
+
+    // Efeito de hover nos cards
+    document.querySelectorAll('.feature-item').forEach(item => {
+      item.addEventListener('mouseenter', function () {
+        this.style.transform = 'translateX(5px)';
+      });
+      item.addEventListener('mouseleave', function () {
+        this.style.transform = 'translateX(0)';
+      });
+    });
+  </script>
 </body>
+
 </html>
