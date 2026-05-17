@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVOCORE - Oferta Exclusiva de Lançamento</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Gradiente e background neon */
+    body {
+      background: #000000;
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Efeito de luz neon background */
+    .neon-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .neon-glow-1 {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -200px;
+      right: 5%;
+      filter: blur(80px);
+    }
+
+    .neon-glow-2 {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(30, 144, 255, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      bottom: 5%;
+      left: 2%;
+      filter: blur(80px);
+    }
+
+    .neon-glow-3 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 150, 255, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      top: 40%;
+      left: 15%;
+      filter: blur(100px);
+    }
+
+    /* Animações */
+    @keyframes glow-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.5);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes slide-in-left {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slide-in-right {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+
+    .glow-pulse {
+      animation: glow-pulse 2s ease-in-out infinite;
+    }
+
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .slide-in-left {
+      animation: slide-in-left 0.8s ease-out forwards;
+    }
+
+    .slide-in-right {
+      animation: slide-in-right 0.8s ease-out forwards;
+    }
+
+    .fade-in-up {
+      animation: fade-in-up 0.8s ease-out forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.6s;
+    }
+
+    .delay-4 {
+      animation-delay: 0.8s;
+    }
+
+    /* Neon text glow */
+    .neon-text {
+      color: #3b82f6;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 0 0 20px rgba(59, 130, 246, 0.6);
+    }
+
+    .neon-text-white {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Botão com glow */
+    .btn-glow {
+      position: relative;
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      border: 2px solid #60a5fa;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-glow:hover {
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 1), 0 0 60px rgba(59, 130, 246, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-glow:active {
+      transform: translateY(0px);
+    }
+
+    /* Cards com borda neon */
+    .card-neon {
+      background: rgba(15, 23, 42, 0.8);
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-neon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .card-neon:hover {
+      border-color: rgba(59, 130, 246, 0.8);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+      transform: translateY(-5px);
+    }
+
+    .card-neon:hover::before {
+      left: 100%;
+    }
+
+    /* Offer box especial */
+    .offer-box {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 58, 138, 0.1) 100%);
+      border: 2px solid rgba(59, 130, 246, 0.4);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Icon glow */
+    .icon-glow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid rgba(59, 130, 246, 0.4);
+      border-radius: 12px;
+      color: #60a5fa;
+      font-size: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-image {
+        display: none !important;
+      }
+
+      .text-responsive-hero {
+        font-size: 2rem !important;
+      }
+
+      .offer-price {
+        font-size: 2rem !important;
+      }
+    }
+
+    /* Premium stroke text effect */
+    .stroke-text {
+      font-weight: 900;
+      -webkit-text-stroke: 1px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Lightning icon animation */
+    @keyframes lightning-bolt {
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .lightning {
+      animation: lightning-bolt 1s ease-in-out infinite;
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Spinner customizado */
+    .countdown {
+      display: inline-block;
+      color: #3b82f6;
+      font-weight: 700;
+      font-size: 18px;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+    }
+
+    /* Badge com efeito */
+    .badge-ebook {
+      position: relative;
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.2);
+      border-left: 4px solid #3b82f6;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #60a5fa;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Ebook cover effect */
+    .ebook-cover {
+      width: 100%;
+      aspect-ratio: 9/12;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #1e40af 0%, #0f3a7d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+      text-transform: uppercase;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 12px;
+    }
+
+    .ebook-cover:hover {
+      border-color: rgba(59, 130, 246, 0.8);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+    }
+
+    /* Features grid */
+    .feature-item {
+      text-align: center;
+    }
+
+    .feature-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 4px;
+    }
+
+    /* Container com limite */
+    .container-max {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Section padding responsivo */
+    @media (max-width: 640px) {
+      .section-padding {
+        padding: 32px 16px;
+      }
+    }
+
+    @media (min-width: 641px) {
+      .section-padding {
+        padding: 64px 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Background glow effects -->
+  <div class="neon-bg">
+    <div class="neon-glow-1"></div>
+    <div class="neon-glow-2"></div>
+    <div class="neon-glow-3"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="relative z-10">
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex items-center section-padding">
+      <div class="container-max w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+
+          <!-- LEFT SIDE - TEXT -->
+          <div class="space-y-8">
+            <!-- Logo -->
+            <div class="slide-in-left delay-1">
+              <div class="flex items-center gap-2 mb-8">
+                <img src="assets/logo.png" alt="Evocore Logo" class="h-10 w-auto filter drop-shadow-[0_0_12px_rgba(59,130,246,0.3)]">
+              </div>
+            </div>
+
+            <!-- Main headline -->
+            <div class="slide-in-left delay-2">
+              <p class="text-white text-sm font-bold uppercase tracking-widest mb-4 neon-text">Oferta Exclusiva de</p>
+              <h1 class="text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6">
+                <span class="neon-text stroke-text">LANÇAMENTO</span>
+              </h1>
+            </div>
+
+            <!-- Subheadline -->
+            <div class="slide-in-left delay-3">
+              <p class="text-white text-lg lg:text-xl font-bold">
+                Transforme seu corpo. Supere seus limites.
+                <span class="neon-text">SEJA EVOCORE.</span>
+              </p>
+            </div>
+
+            <!-- Offer Box -->
+            <div class="slide-in-left delay-4 mt-8">
+              <div class="offer-box">
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="lightning text-yellow-400 text-2xl">⚡</span>
+                  <span class="text-white font-bold text-sm uppercase tracking-widest">Super Promoção, Apenas
+                    Hoje:</span>
+                </div>
+
+                <div class="flex items-center justify-center gap-4 mt-6">
+                  <div class="text-right">
+                    <p class="text-gray-400 text-sm font-bold mb-1">DE</p>
+                    <p class="text-gray-400 text-3xl font-black line-through">R$ 69</p>
+                  </div>
+
+                  <div class="text-2xl text-blue-400 font-bold">→</div>
+
+                  <div class="text-center">
+                    <p class="text-gray-400 text-sm font-bold mb-1">POR</p>
+                    <p class="neon-text text-5xl font-black">R$ 35</p>
+                  </div>
+                </div>
+
+                <p class="text-center text-blue-300 text-xs uppercase tracking-widest font-bold mt-6">Economize 49%
+                  nesta oferta única</p>
+              </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="fade-in-up delay-4 grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-blue-900">
+              <div class="feature-item">
+                <div class="icon-glow mx-auto">💪</div>
+                <div class="feature-title">TREINOS</div>
+                <div class="feature-desc">Personalizados para cada objetivo</div>
+              </div>
+              <div class="feature-item">
+                <div class="icon-glow mx-auto">🥗</div>
+                <div class="feature-title">NUTRIÇÃO</div>
+                <div class="feature-desc">Planos alimentares inteligentes</div>
+              </div>
+              <div class="feature-item">
+                <div class="icon-glow mx-auto">📈</div>
+                <div class="feature-title">EVOLUÇÃO</div>
+                <div class="feature-desc">Acompanhe seus resultados</div>
+              </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="fade-in-up delay-4 pt-4">
+              <a href="https://pay.cakto.com.br/33drna3" class="btn-glow inline-block text-center w-full lg:w-auto glow-pulse">
+                QUERO COMEÇAR AGORA!
+              </a>
+              <p class="text-xs text-gray-400 mt-4 text-center lg:text-left">
+                ⏰ Promoção válida apenas hoje! Não perca essa oportunidade única!
+              </p>
+            </div>
+          </div>
+
+          <!-- RIGHT SIDE - IMAGE (Desktop only) -->
+          <div class="hero-image hidden lg:flex items-center justify-center">
+            <div class="relative w-full max-w-sm">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl blur-3xl opacity-20 animate-pulse">
+              </div>
+              <div class="relative bg-gradient-to-br from-blue-900 to-slate-900 rounded-3xl p-1 glow-pulse">
+                <div class="bg-black rounded-3xl overflow-hidden aspect-[9/16] flex items-center justify-center">
+                  <img src="assets/meal-scan-result.png" alt="Previa do aplicativo Evocore" class="w-full h-full object-cover object-top">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EBOOKS SECTION -->
+    <section class="section-padding">
+      <div class="container-max">
+        <!-- Section header -->
+        <div class="mb-12 text-center fade-in-up">
+          <div class="flex items-center justify-center gap-3 mb-4">
+            <span class="text-3xl">📚</span>
+            <h2 class="text-4xl lg:text-5xl font-black text-white">EBOOKS <span class="neon-text">EXCLUSIVOS</span></h2>
+          </div>
+          <p class="text-gray-400 text-lg">Receba 3 guias premium junto com sua compra</p>
+        </div>
+
+        <!-- Ebooks Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+
+          <!-- Ebook 1 -->
+          <div class="card-neon p-6 fade-in-up delay-1">
+            <div class="badge-ebook">📘 EXCLUSIVO</div>
+            <img src="assets/2boraqueimar.jpg" alt="Bora Queimar Cover" class="ebook-cover object-cover">
+            <h3 class="font-bold text-white text-sm uppercase tracking-wide">Bora Queimar</h3>
+            <p class="text-gray-400 text-xs mt-2">Guia completo para acelerar seu metabolismo e queimar gordura de forma
+              inteligente</p>
+          </div>
+
+          <!-- Ebook 2 -->
+          <div class="card-neon p-6 fade-in-up delay-2">
+            <div class="badge-ebook">📗 EXCLUSIVO</div>
+            <img src="assets/fique forte toda semana.jpg" alt="Fique Forte Toda Semana Cover" class="ebook-cover object-cover">
+            <h3 class="font-bold text-white text-sm uppercase tracking-wide">Fique Forte Toda Semana</h3>
+            <p class="text-gray-400 text-xs mt-2">Treinos progressivos para ganho de força e massa muscular magra</p>
+          </div>
+
+          <!-- Ebook 3 -->
+          <div class="card-neon p-6 fade-in-up delay-3">
+            <div class="badge-ebook">📙 EXCLUSIVO</div>
+            <img src="assets/Projeto Doce Fit.jpg" alt="Projeto Doce Fit Cover" class="ebook-cover object-cover">
+            <h3 class="font-bold text-white text-sm uppercase tracking-wide">Projeto Doce Fit</h3>
+            <p class="text-gray-400 text-xs mt-2">Receitas saudáveis e deliciosas para manter a dieta sem sacrificar o
+              prazer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXCLUSIVITY SECTION -->
+    <section class="section-padding">
+      <div class="container-max">
+        <div class="card-neon p-8 lg:p-12 fade-in-up relative overflow-hidden">
+          <div
+            class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-l from-blue-600/10 to-transparent rounded-full blur-3xl -z-10">
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <!-- Left: Trophy icon & text -->
+            <div class="flex flex-col items-center lg:items-start gap-4">
+              <div
+                class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-4xl glow-pulse">
+                🏆
+              </div>
+              <h2 class="text-3xl lg:text-4xl font-black text-white text-center lg:text-left">
+                OS PRIMEIROS <span class="neon-text">50</span> GANHAM:
+              </h2>
+            </div>
+
+            <!-- Right: Benefits -->
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold">
+                  ✓</div>
+                <div>
+                  <p class="font-bold text-white text-lg">2 SEMANAS GRATUITAS</p>
+                  <p class="text-gray-400 text-sm">Acesso total às features premium</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold">
+                  ✓</div>
+                <div>
+                  <p class="font-bold text-white text-lg">DESCONTO NAS PRÓXIMAS RENOVAÇÕES</p>
+                  <p class="text-gray-400 text-sm">50% de desconto por 6 meses</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold">
+                  ✓</div>
+                <div>
+                  <p class="font-bold text-white text-lg">SUPORTE PRIORITÁRIO</p>
+                  <p class="text-gray-400 text-sm">Chat 24/7 com nossos especialistas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aviso de urgência -->
+          <div class="mt-8 pt-8 border-t border-blue-900/50 text-center">
+            <p class="text-sm text-gray-400 mb-2">Faltam poucas vagas!</p>
+            <p class="text-blue-400 font-bold animate-pulse">⚡ Apenas 12 vagas disponíveis</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="section-padding">
+      <div class="container-max text-center">
+        <div class="fade-in-up space-y-6 mb-8">
+          <p class="text-gray-300 text-lg">Está pronto para transformar sua vida?</p>
+          <h2 class="text-4xl lg:text-5xl font-black text-white">
+            É HOJE. É AGORA. É <span class="neon-text">EVOCORE.</span>
+          </h2>
+          <p class="text-gray-400 text-base max-w-2xl mx-auto">
+            Não perca essa oportunidade única de transformar seu corpo com nossa metodologia exclusiva e suporte
+            especializado!
+          </p>
+        </div>
+
+        <div class="fade-in-up delay-1 flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://pay.cakto.com.br/33drna3" class="btn-glow inline-block text-center glow-pulse">
+            QUERO COMEÇAR AGORA - R$ 35
+          </a>
+          <a href="https://pay.cakto.com.br/33drna3"
+            class="px-8 py-3 border-2 border-blue-400 text-blue-400 rounded-lg font-bold uppercase tracking-wider hover:bg-blue-400/10 transition-all duration-300 flex items-center justify-center">
+            Assistir Apresentação
+          </a>
+        </div>
+
+        <div class="fade-in-up delay-2 mt-8 pt-8 border-t border-blue-900/30">
+          <p class="text-gray-500 text-xs uppercase tracking-widest font-bold">
+            💳 Pagamento seguro | 🔒 Dados protegidos | ✅ Garantia de satisfação
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-blue-900/20 mt-12">
+      <div class="container-max text-center text-gray-500 text-xs space-y-2">
+        <div class="flex items-center justify-center gap-2">
+          <img src="assets/logo.png" alt="Evocore Logo" class="h-5 w-auto">
+          <p class="font-bold">© 2024 EVOCORE. Todos os direitos reservados.</p>
+        </div>
+        <p>Esta página foi otimizada para conversão máxima e experiência do usuário.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Intersection observer para animações ao scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Contador regressivo de vagas (opcional - descomentar para usar)
+    // const updateVagas = () => {
+    //     const vagasElement = document.querySelector('[data-vagas]');
+    //     if(vagasElement) {
+    //         let vagas = parseInt(vagasElement.textContent);
+    //         if(vagas > 0 && Math.random() > 0.7) {
+    //             vagas--;
+    //             vagasElement.textContent = vagas;
+    //         }
+    //     }
+    // };
+    // setInterval(updateVagas, Math.random() * 10000 + 5000);
+  </script>
+</body>
+
+</html>
